@@ -27,6 +27,7 @@ import org.jclouds.Fallbacks;
 import org.jclouds.http.filters.BasicAuthentication;
 import org.jclouds.rest.annotations.Fallback;
 import org.jclouds.rest.annotations.RequestFilters;
+import org.jclouds.rest.annotations.QueryParams;
 import org.jclouds.softlayer.domain.ProductPackage;
 
 /**
@@ -55,5 +56,17 @@ public interface AccountApi {
    @Consumes(MediaType.APPLICATION_JSON)
    @Fallback(Fallbacks.NullOnNotFoundOr404.class)
    Set<ProductPackage> getActivePackages();
+
+   /**
+    *
+    * @return return all the active packages's id and name.
+    * @see #getActivePackages()
+    */
+   @GET
+   @Path("/SoftLayer_Account/ActivePackages.json")
+   @Consumes(MediaType.APPLICATION_JSON)
+   @Fallback(Fallbacks.NullOnNotFoundOr404.class)
+   @QueryParams(keys = "objectMask", values = "id;name")
+   Set<ProductPackage> getReducedActivePackages();
 
 }

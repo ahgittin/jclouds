@@ -93,10 +93,8 @@ public class VirtualGuestToNodeMetadata implements Function<VirtualGuest, NodeMe
       if (image != null) {
          builder.imageId(image.getId());
          builder.operatingSystem(image.getOperatingSystem());
+         builder.hardware(hardware.getHardware(from));
       }
-
-      builder.hardware(hardware.getHardware(from));
-
       builder.status(serverStateToNodeStatus.get(from.getPowerState().getKeyName()));
 
       // These are null for 'bad' guest orders in the HALTED state.
@@ -162,6 +160,8 @@ public class VirtualGuestToNodeMetadata implements Function<VirtualGuest, NodeMe
             return null;
          Iterable<ProductItem> items = Iterables.transform(order.getPrices(), ProductItems.item());
          ProductItem os = Iterables.find(items, ProductItemPredicates.categoryCode("os"));
+         if (os.getPrices().isEmpty())
+             return null;
          return new ProductItemToImage().apply(os);
       }
    }
