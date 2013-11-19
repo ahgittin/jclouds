@@ -88,12 +88,12 @@ public class TemplateBuilderImplTest {
       Iterable<String> values = Arrays.asList("1", "3", null, "2", "2");
       assertEquals(TemplateBuilderImpl.multiMax(Ordering.natural().nullsLast(), values), Arrays.asList((Object)null));
    }
-   
+
    public void testMultiMaxNulls() {
       Iterable<String> values = Arrays.asList("1", "3", null, "2", "2", null);
       assertEquals(TemplateBuilderImpl.multiMax(Ordering.natural().nullsLast(), values), Arrays.asList((Object)null, null));
    }
-    
+
    protected Location provider = new LocationBuilder().scope(LocationScope.PROVIDER).id("aws-ec2").description("aws-ec2").build();
 
    protected Location region = new LocationBuilder().scope(LocationScope.REGION).id("us-east-1")
@@ -115,13 +115,13 @@ public class TemplateBuilderImplTest {
 
    protected Image image64bit = ImageBuilder.fromImage(image).id(getProviderFormatId("image64bId")).providerId("image64bId")
             .operatingSystem(os.toBuilder().arch("X86_64").build()).build();
-   
+ 
    protected Image imageArchNull = ImageBuilder.fromImage(image).id(getProviderFormatId("imageArchNullId")).providerId("imageArchNullId")
             .operatingSystem(os.toBuilder().arch(null).build()).build();
-   
+
    protected Image imageNameAlt = ImageBuilder.fromImage(image).id(getProviderFormatId("imageNameAltId")).providerId("imageNameAltId")
             .name("alternateImageName").build();
-   
+
    @SuppressWarnings("unchecked")
    public void testLocationPredicateWhenComputeMetadataIsNotLocationBound() {
 
@@ -176,7 +176,7 @@ public class TemplateBuilderImplTest {
 
       verify(defaultTemplate, optionsProvider, templateBuilderProvider);
    }
-   
+
    protected void doTestResolveImages(Supplier<Set<? extends Image>> inputImages, Image expectedBest) {
        doTestResolveImagesWithTemplateBuilderCustomizer(
              inputImages, 
@@ -189,7 +189,7 @@ public class TemplateBuilderImplTest {
             Suppliers.<Set<? extends Image>> ofInstance(ImmutableSet.<Image> of(image, image64bit)),
             image64bit);
    }
-   
+
    public void testResolveImagesPrefersNull() {
       // preferring null has been the default behaviour; not sure if this is ideal
       // (would make more sense to prefer nonNull) but don't change behaviour by default
@@ -201,7 +201,7 @@ public class TemplateBuilderImplTest {
    public void testResolveImagesCustomSorterPreferringNonNull() {
       // preferring null has been the default behaviour; 
       // see comments in TemplateBuilderImpl.DEFAULT_IMAGE_ORDERING
-       
+
       final Ordering<Image> sorterPreferringNonNullArch = new Ordering<Image>() {
          @Override
          public int compare(Image left, Image right) {
@@ -214,14 +214,14 @@ public class TemplateBuilderImplTest {
       };
       assertTrue(TemplateBuilderImpl.DEFAULT_IMAGE_ORDERING.compare(image64bit, imageArchNull) < 0, "wrong default image ordering");
       assertTrue(sorterPreferringNonNullArch.compare(image64bit, imageArchNull) > 0, "wrong custom image ordering");
-      
+
       Function<TemplateBuilderImpl, TemplateBuilderImpl> tbCustomiser = new Function<TemplateBuilderImpl, TemplateBuilderImpl>() {
          @Override
          public TemplateBuilderImpl apply(TemplateBuilderImpl input) {
             return input.imageChooser(input.imageChooserFromOrdering(sorterPreferringNonNullArch));
          }
       };
-     
+
       doTestResolveImagesWithTemplateBuilderCustomizer(
             Suppliers.<Set<? extends Image>> ofInstance(ImmutableSet.<Image> of(image, imageArchNull, image64bit)),
             tbCustomiser, image64bit);
