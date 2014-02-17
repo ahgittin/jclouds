@@ -17,7 +17,6 @@
 package org.jclouds.softlayer.features;
 
 import org.jclouds.apis.BaseApiLiveTest;
-import org.jclouds.compute.domain.OsFamily;
 import org.jclouds.softlayer.SoftLayerApi;
 import org.jclouds.softlayer.domain.ProductItem;
 import org.jclouds.softlayer.domain.ProductItemCategory;
@@ -26,7 +25,9 @@ import org.testng.annotations.Test;
 
 import java.util.Set;
 
-import static org.testng.Assert.*;
+import static org.testng.Assert.assertFalse;
+import static org.testng.Assert.assertNotNull;
+import static org.testng.Assert.assertTrue;
 
 /**
  * Tests behavior of {@code SoftLayerApi}

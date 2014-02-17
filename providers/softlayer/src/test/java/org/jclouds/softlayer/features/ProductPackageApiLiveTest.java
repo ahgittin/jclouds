@@ -30,7 +30,6 @@ import org.jclouds.softlayer.compute.functions.ProductItems;
 import org.jclouds.softlayer.domain.Address;
 import org.jclouds.softlayer.domain.Datacenter;
 import org.jclouds.softlayer.domain.ProductItem;
-import org.jclouds.softlayer.domain.ProductItemCategory;
 import org.jclouds.softlayer.domain.ProductItemPrice;
 import org.jclouds.softlayer.domain.ProductPackage;
 import org.jclouds.softlayer.domain.Region;
