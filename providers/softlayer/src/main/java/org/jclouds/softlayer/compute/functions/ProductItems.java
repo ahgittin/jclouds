@@ -19,18 +19,12 @@ package org.jclouds.softlayer.compute.functions;
 import java.util.NoSuchElementException;
 import java.util.Set;
 
-import com.google.common.collect.Sets;
-import org.jclouds.compute.reference.ComputeServiceConstants;
-import org.jclouds.logging.Logger;
 import org.jclouds.softlayer.domain.ProductItem;
 import org.jclouds.softlayer.domain.ProductItemCategory;
 import org.jclouds.softlayer.domain.ProductItemPrice;
 
 import com.google.common.base.Function;
 import com.google.common.collect.Iterables;
-
-import javax.annotation.Resource;
-import javax.inject.Named;
 
 public class ProductItems {
 

@@ -21,12 +21,9 @@ import static org.testng.Assert.assertFalse;
 
 import java.util.Properties;
 import java.util.Random;
-import java.util.concurrent.TimeUnit;
 
-import com.google.common.base.Stopwatch;
 import org.jclouds.compute.ComputeServiceAdapter.NodeAndInitialCredentials;
 import org.jclouds.compute.domain.ExecResponse;
-import org.jclouds.compute.domain.OsFamily;
 import org.jclouds.compute.domain.Template;
 import org.jclouds.compute.domain.TemplateBuilder;
 import org.jclouds.compute.functions.DefaultCredentialsFromImageOrOverridingCredentials;
