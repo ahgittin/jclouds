@@ -17,6 +17,7 @@
 package org.jclouds.proxy.internal;
 
 import static com.google.common.base.Preconditions.checkArgument;
+import static org.jclouds.Constants.PROPERTY_PROXY_FROM_JVM;
 import static org.jclouds.Constants.PROPERTY_PROXY_HOST;
 import static org.jclouds.Constants.PROPERTY_PROXY_PASSWORD;
 import static org.jclouds.Constants.PROPERTY_PROXY_PORT;
@@ -49,6 +50,9 @@ public class GuiceProxyConfig implements ProxyConfig {
    @Named(PROPERTY_PROXY_SYSTEM)
    private boolean systemProxies = Boolean.parseBoolean(System.getProperty("java.net.useSystemProxies", "false"));
    @Inject(optional = true)
+   @Named(PROPERTY_PROXY_FROM_JVM)
+   private boolean canUseProxyFromJvm = true;
+   @Inject(optional = true)
    @Named(PROPERTY_PROXY_HOST)
    private String host;
    @Inject(optional = true)
@@ -66,7 +70,7 @@ public class GuiceProxyConfig implements ProxyConfig {
 
    @Override
    public Optional<HostAndPort> getProxy() {
-      if (host == null)
+      if (Strings.isNullOrEmpty(host))
          return Optional.absent();
       Integer port = this.port;
       if (port == null) {
@@ -107,13 +111,19 @@ public class GuiceProxyConfig implements ProxyConfig {
       return systemProxies;
    }
 
+   @Override
+   public boolean canUseProxyFromJvm() {
+      return canUseProxyFromJvm;
+   }
+   
    /**
     * {@inheritDoc}
     */
    @Override
    public String toString() {
       return Objects.toStringHelper(this).omitNullValues().add("systemProxies", systemProxies ? "true" : null)
-            .add("proxy", getProxy().orNull()).add("user", user).add("type", host != null ? type : null).toString();
+            .add("canUseProxyFromJvm", canUseProxyFromJvm ? "true" : "false")
+            .add("proxyHostPort", getProxy().orNull()).add("user", user).add("type", host != null ? type : null).toString();
    }
 
 }

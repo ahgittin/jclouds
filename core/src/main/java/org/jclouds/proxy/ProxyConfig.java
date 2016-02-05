@@ -36,6 +36,11 @@ public interface ProxyConfig {
     * @see org.jclouds.Constants#PROPERTY_PROXY_SYSTEM
     */
    boolean useSystem();
+
+   /**
+    * @see org.jclouds.Constants#PROPERTY_PROXY_FROM_JVM
+    */
+   boolean canUseProxyFromJvm();
    
    /**
     * @see org.jclouds.Constants#PROPERTY_PROXY_TYPE
@@ -43,6 +48,8 @@ public interface ProxyConfig {
    Type getType();
    
    /**
+    * Returns the host and port of the proxy configured here, if there is one
+    * 
     * @see org.jclouds.Constants#PROPERTY_PROXY_HOST
     * @see org.jclouds.Constants#PROPERTY_PROXY_PORT
     */
