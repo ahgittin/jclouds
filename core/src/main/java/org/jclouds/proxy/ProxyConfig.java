@@ -33,8 +33,9 @@ import com.google.inject.ImplementedBy;
 public interface ProxyConfig {
 
    /**
+    * @deprecated
     * @see org.jclouds.Constants#PROPERTY_PROXY_SYSTEM
-    */
+    */ @Deprecated
    boolean useSystem();
 
    /**

@@ -106,8 +106,10 @@ public final class Constants {
     * and {@link #PROPERTY_PROXY_HOST} is not supplied.
     * Due to how Java's <code>java.net.useSystemProxies</code> is handled,
     * this may have limited effectiveness.
+    * @deprecated in 2.0.0, replaced by {@link #PROPERTY_PROXY_FROM_JVM} does what this intended but better
     */
-   // TODO: should this be deprecated? the impl attempts to set the corresponding JVM system property
+   @Deprecated
+   // deprecated because:  the impl attempts to set the corresponding JVM system property
    // but that is documented to have no effect if set after system startup;
    // see e.g. https://docs.oracle.com/javase/7/docs/api/java/net/doc-files/net-properties.html
    public static final String PROPERTY_PROXY_SYSTEM = "jclouds.use-system-proxy";

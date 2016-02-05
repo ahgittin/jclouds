@@ -46,8 +46,10 @@ import com.google.inject.Inject;
 @Singleton
 public class GuiceProxyConfig implements ProxyConfig {
 
+   @SuppressWarnings("deprecation")
    @Inject(optional = true)
    @Named(PROPERTY_PROXY_SYSTEM)
+   @Deprecated
    private boolean systemProxies = Boolean.parseBoolean(System.getProperty("java.net.useSystemProxies", "false"));
    @Inject(optional = true)
    @Named(PROPERTY_PROXY_FROM_JVM)
