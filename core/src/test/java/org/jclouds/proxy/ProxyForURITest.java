@@ -17,6 +17,7 @@
 package org.jclouds.proxy;
 
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertNotEquals;
 import static org.testng.Assert.assertNotNull;
 
 import java.lang.reflect.Field;
@@ -160,6 +161,16 @@ public class ProxyForURITest {
       URI uri = new URI("http://example.com/file");
       // could return a proxy, could return NO_PROXY, depends on the tester's environment
       assertNotNull(new ProxyForURI(config).apply(uri));
+   }
+
+   @Test
+   public void testJcloudsProxyHostsPreferredOverJvmProxy() throws URISyntaxException {
+      ProxyConfig test = new MyProxyConfig(true, true, Proxy.Type.HTTP, hostAndPort, noCreds);
+      ProxyConfig jclouds = new MyProxyConfig(false, false, Proxy.Type.HTTP, hostAndPort, noCreds);
+      ProxyConfig jvm = new MyProxyConfig(false, true, Proxy.Type.HTTP, noHostAndPort, noCreds);
+      URI uri = new URI("http://example.com/file");
+      assertEquals(new ProxyForURI(test).apply(uri), new ProxyForURI(jclouds).apply(uri));
+      assertNotEquals(new ProxyForURI(test).apply(uri), new ProxyForURI(jvm).apply(uri));
    }
 
    @Test
