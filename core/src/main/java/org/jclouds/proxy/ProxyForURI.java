@@ -82,10 +82,12 @@ public class ProxyForURI implements Function<URI, Proxy> {
          }
          return proxy;
       }
-      if (config.canUseProxyFromJvm()) {
+      if (config.isJvmProxyEnabled()) {
          return getDefaultProxy(endpoint);
       }
       if (config.useSystem()) {
+         // see notes on the Constant which initialized the above for deprecation;
+         // in short the following applied after startup is documented to have no effect.
          System.setProperty("java.net.useSystemProxies", "true");
          return getDefaultProxy(endpoint);
       }

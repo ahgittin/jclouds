@@ -76,7 +76,7 @@ public class ProxyForURITest {
       }
 
       @Override
-      public boolean canUseProxyFromJvm() {
+      public boolean isJvmProxyEnabled() {
          return canUseProxyFromJvm;
       }
    }

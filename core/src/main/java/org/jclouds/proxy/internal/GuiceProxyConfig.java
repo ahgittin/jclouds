@@ -17,7 +17,7 @@
 package org.jclouds.proxy.internal;
 
 import static com.google.common.base.Preconditions.checkArgument;
-import static org.jclouds.Constants.PROPERTY_PROXY_FROM_JVM;
+import static org.jclouds.Constants.PROPERTY_PROXY_ENABLE_JVM_PROXY;
 import static org.jclouds.Constants.PROPERTY_PROXY_HOST;
 import static org.jclouds.Constants.PROPERTY_PROXY_PASSWORD;
 import static org.jclouds.Constants.PROPERTY_PROXY_PORT;
@@ -52,8 +52,8 @@ public class GuiceProxyConfig implements ProxyConfig {
    @Deprecated
    private boolean systemProxies = Boolean.parseBoolean(System.getProperty("java.net.useSystemProxies", "false"));
    @Inject(optional = true)
-   @Named(PROPERTY_PROXY_FROM_JVM)
-   private boolean canUseProxyFromJvm = true;
+   @Named(PROPERTY_PROXY_ENABLE_JVM_PROXY)
+   private boolean jvmProxyEnabled = true;
    @Inject(optional = true)
    @Named(PROPERTY_PROXY_HOST)
    private String host;
@@ -114,8 +114,8 @@ public class GuiceProxyConfig implements ProxyConfig {
    }
 
    @Override
-   public boolean canUseProxyFromJvm() {
-      return canUseProxyFromJvm;
+   public boolean isJvmProxyEnabled() {
+      return jvmProxyEnabled;
    }
    
    /**
@@ -124,7 +124,7 @@ public class GuiceProxyConfig implements ProxyConfig {
    @Override
    public String toString() {
       return Objects.toStringHelper(this).omitNullValues().add("systemProxies", systemProxies ? "true" : null)
-            .add("canUseProxyFromJvm", canUseProxyFromJvm ? "true" : "false")
+            .add("jvmProxyEnabled", jvmProxyEnabled ? "true" : "false")
             .add("proxyHostPort", getProxy().orNull()).add("user", user).add("type", host != null ? type : null).toString();
    }
 

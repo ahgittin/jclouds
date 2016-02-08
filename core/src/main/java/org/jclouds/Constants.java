@@ -102,11 +102,11 @@ public final class Constants {
     * <p/>
     * Whether or not to attempt to use the proxy setup from the underlying operating system.
     * Defaults to false. 
-    * Only considered if {@link #PROPERTY_PROXY_FROM_JVM} is false
+    * Only considered if {@link #PROPERTY_PROXY_ENABLE_JVM_PROXY} is false
     * and {@link #PROPERTY_PROXY_HOST} is not supplied.
     * Due to how Java's <code>java.net.useSystemProxies</code> is handled,
     * this may have limited effectiveness.
-    * @deprecated in 2.0.0, replaced by {@link #PROPERTY_PROXY_FROM_JVM} does what this intended but better
+    * @deprecated in 2.0.0, replaced by {@link #PROPERTY_PROXY_ENABLE_JVM_PROXY} does what this intended but better
     */
    @Deprecated
    // deprecated because:  the impl attempts to set the corresponding JVM system property
@@ -132,7 +132,7 @@ public final class Constants {
     * then jclouds will not use a proxy irrespective of the <code>java.net.*</code> settings,
     * unless {@link #PROPERTY_PROXY_HOST} is set or {@link #PROPERTY_PROXY_SYSTEM} is true.
     */
-   public static final String PROPERTY_PROXY_FROM_JVM = "jclouds.use-jvm-proxy";
+   public static final String PROPERTY_PROXY_ENABLE_JVM_PROXY = "jclouds.enable-jvm-proxy";
    
    /**
     * String property.

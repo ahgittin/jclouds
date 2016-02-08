@@ -41,7 +41,7 @@ public interface ProxyConfig {
    /**
     * @see org.jclouds.Constants#PROPERTY_PROXY_FROM_JVM
     */
-   boolean canUseProxyFromJvm();
+   boolean isJvmProxyEnabled();
    
    /**
     * @see org.jclouds.Constants#PROPERTY_PROXY_TYPE
